@@ -1,0 +1,70 @@
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.small_gap {
+  gap: 5px;
+}
+
+.gap {
+  gap: 10px;
+}
+
+.big_gap {
+  gap: 20px;
+}
+
+input {
+  max-width: 65px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+table {
+  max-height: 466px;
+  overflow-y: scroll;
+}
+
+table,
+td,
+th {
+  border: 1px solid #000;
+}
+
+td,
+th {
+  padding: 10px;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 10px;
+}
