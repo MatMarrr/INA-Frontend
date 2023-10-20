@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Table } from "./components/table";
 import axios from "axios";
+import { SpinnerDotted } from "spinners-react";
 
 const App = () => {
   const [a, setA] = useState(-4);
   const [b, setB] = useState(12);
   const [d, setD] = useState(0.001);
   const [n, setN] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
     header: ["lp.", "x real", "x int", "x bin", "x int", "x real", "f(x)"],
@@ -16,8 +18,11 @@ const App = () => {
   // -2 => 3 ; -1.012
 
   const getResult = async () => {
+    setShowResult(false);
+    setIsLoading(true);
+
     const apiUrl = import.meta.env.VITE_API_URL;
-  
+
     try {
       const response = await axios.get(
         `${apiUrl}/genetic-algorithm/all-conversions-table`,
@@ -27,21 +32,18 @@ const App = () => {
             b: b,
             d: d,
             n: n,
-          }
+          },
         }
       );
-  
-      const data = response.data;
-      console.log(data);
-      
+
       setResult((prevResult) => ({
         ...prevResult,
-        data: data.conversionsTable,
+        data: response.data.conversionsTable,
       }));
-      
+      setIsLoading(false);
       setShowResult(true);
     } catch (error) {
-      console.error('Error fetching the data', error);
+      console.error("Error fetching the data", error);
     }
   };
 
@@ -54,8 +56,7 @@ const App = () => {
           <input
             value={a.toString()}
             onChange={(e) => {
-              const val = e.target.value;
-              setA(val === "" ? 0 : parseInt(val));
+              setA(e.target.value);
             }}
           ></input>
         </div>
@@ -64,8 +65,7 @@ const App = () => {
           <input
             value={b.toString()}
             onChange={(e) => {
-              const val = e.target.value;
-              setB(val === "" ? 0 : parseInt(val));
+              setB(e.target.value);
             }}
           />
         </div>
@@ -74,7 +74,7 @@ const App = () => {
           <select
             value={d.toString()}
             onChange={(e) => {
-              setD(parseFloat(e.target.value));
+              setD(e.target.value);
             }}
           >
             <option value="0.1">0,1</option>
@@ -88,8 +88,7 @@ const App = () => {
           <input
             value={n.toString()}
             onChange={(e) => {
-              const val = e.target.value;
-              setN(val === "" ? 0 : parseInt(val));
+              setN(e.target.value);
             }}
           ></input>
         </div>
@@ -97,7 +96,16 @@ const App = () => {
           <button onClick={getResult}>Start</button>
         </div>
       </div>
-
+      {isLoading && (
+        <div className="row margin_top">
+          <SpinnerDotted
+            size={50}
+            thickness={100}
+            speed={100}
+            color="#36ad47"
+          />
+        </div>
+      )}
       {showResult && <Table header={result.header} data={result.data} />}
     </div>
   );

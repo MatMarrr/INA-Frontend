@@ -2,7 +2,7 @@ import React from "react";
 
 export const Table = ({ header, data }) => {
   return (
-    <table>
+    <table className="margin_top_small">
       <thead>
         <tr>
           {header.map((element, index) => (
