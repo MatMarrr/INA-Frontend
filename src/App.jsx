@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Table } from "./components/table";
 import axios from "axios";
 import { SpinnerDotted } from "spinners-react";
@@ -10,12 +10,21 @@ const App = () => {
   const [n, setN] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
     header: ["lp.", "x real", "x int", "x bin", "x int", "x real", "f(x)"],
     data: [],
   });
 
-  // -2 => 3 ; -1.012
+  // a => -2
+  // b => 3 ;
+  // xReal => -1.012
+  // d => 0.001
+  // n => 10
+
+  useEffect(() => {
+    setAllFilled(!!a && !!b && !!d && !!n);
+  }, [a, b, d, n]);
 
   const getResult = async () => {
     setShowResult(false);
@@ -29,7 +38,7 @@ const App = () => {
         `${apiUrl}/genetic-algorithm/all-conversions-table`,
         {
           headers: {
-            "Authorization": authorizationKey
+            Authorization: authorizationKey,
           },
           params: {
             a: a,
@@ -98,7 +107,9 @@ const App = () => {
           ></input>
         </div>
         <div className="row small_gap">
-          <button onClick={getResult}>Start</button>
+          <button onClick={getResult} disabled={!allFilled}>
+            Start
+          </button>
         </div>
       </div>
       {isLoading && (
