@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { Table } from "./components/table";
-import {
-  realToInt,
-  intToReal,
-  intToBin,
-  binToInt,
-  getL,
-  formatBinNumber,
-} from "./functions.js";
+import axios from "axios";
 
 const App = () => {
   const [a, setA] = useState(-4);
@@ -20,66 +13,36 @@ const App = () => {
     data: [],
   });
 
-  const str = (number) => {
-    return number.toString();
-  };
-
-  const roundD = (number, d) => {
-    const precision = Math.abs(Math.round(Math.log10(d)));
-    return parseFloat(number).toFixed(precision);
-  };
-
   // -2 => 3 ; -1.012
-  const getRandomNumber = (min, max, precision) => {
-    const multiplier = 1 / precision;
-    min = Math.ceil(min * multiplier);
-    max = Math.floor(max * multiplier);
-    const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomValue / multiplier;
-  };
 
-  const f = (x) => {
-    const mod = x % 1;
-    const cosPart = Math.cos(20 * Math.PI * x);
-    const sinPart = Math.sin(x);
-    return mod * (cosPart - sinPart);
-  };
-
-  const getResult = () => {
-    setResult((prevResult) => ({
-      ...prevResult,
-      data: [],
-    }));
-
-    const l = getL(a, b, d);
-
-    console.log(l);
-
-    for (let i = 1; i <= n; ++i) {
-      let fisrstX = roundD(getRandomNumber(a, b, d), d);
-      let secondX = realToInt(fisrstX, a, b, l);
-      let thirdX = intToBin(secondX, l);
-      let fourthX = binToInt(thirdX);
-      let fifthX = roundD(intToReal(fourthX, a, b, l), d);
-      let funX = f(fifthX);
-
-      let row = [
-        i,
-        str(fisrstX),
-        str(secondX),
-        str(thirdX),
-        str(fourthX),
-        str(fifthX),
-        str(funX),
-      ];
-
+  const getResult = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+  
+    try {
+      const response = await axios.get(
+        `${apiUrl}/genetic-algorithm/all-conversions-table`,
+        {
+          params: {
+            a: a,
+            b: b,
+            d: d,
+            n: n,
+          }
+        }
+      );
+  
+      const data = response.data;
+      console.log(data);
+      
       setResult((prevResult) => ({
         ...prevResult,
-        data: [...prevResult.data, row],
+        data: data.conversionsTable,
       }));
+      
+      setShowResult(true);
+    } catch (error) {
+      console.error('Error fetching the data', error);
     }
-
-    setShowResult(true);
   };
 
   return (
