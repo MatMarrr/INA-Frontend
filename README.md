@@ -9,7 +9,7 @@
 <br>
 
 ## Project Description
-This is project made for INA university subcject
+This is project made for INA university subject
 
 [react.js]: https://en.wikipedia.org/wiki/React_(software)
 [js]: https://en.wikipedia.org/wiki/JavaScript
