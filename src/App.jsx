@@ -22,11 +22,15 @@ const App = () => {
     setIsLoading(true);
 
     const apiUrl = import.meta.env.VITE_API_URL;
+    const authorizationKey = import.meta.env.VITE_API_AUTHORIZATION_KEY;
 
     try {
       const response = await axios.get(
         `${apiUrl}/genetic-algorithm/all-conversions-table`,
         {
+          headers: {
+            "Authorization": authorizationKey
+          },
           params: {
             a: a,
             b: b,
@@ -40,6 +44,7 @@ const App = () => {
         ...prevResult,
         data: response.data.conversionsTable,
       }));
+
       setIsLoading(false);
       setShowResult(true);
     } catch (error) {
