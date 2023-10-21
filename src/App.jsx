@@ -8,6 +8,7 @@ const App = () => {
   const [b, setB] = useState(12);
   const [d, setD] = useState(0.001);
   const [n, setN] = useState(10);
+  const [theme, setTheme] = useState("light");
   const [direction, setDirection] = useState("min");
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -22,6 +23,69 @@ const App = () => {
   // xReal => -1.012
   // d => 0.001
   // n => 10
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.style.backgroundColor = "#000";
+      document.body.style.color = "#fff";
+
+      const tables = document.getElementsByTagName("table");
+      const tds = document.getElementsByTagName("td");
+      const ths = document.getElementsByTagName("th");
+
+      for (let table of tables) {
+        table.style.borderColor = "#fff";
+      }
+
+      for (let td of tds) {
+        td.style.borderColor = "#fff";
+      }
+
+      for (let th of ths) {
+        th.style.borderColor = "#fff";
+      }
+    } else {
+      document.body.style.backgroundColor = "#fff";
+      document.body.style.color = "#000";
+
+      const tables = document.getElementsByTagName("table");
+      const tds = document.getElementsByTagName("td");
+      const ths = document.getElementsByTagName("th");
+
+      for (let table of tables) {
+        table.style.borderColor = "#000";
+      }
+
+      for (let td of tds) {
+        td.style.borderColor = "#000";
+      }
+
+      for (let th of ths) {
+        th.style.borderColor = "#000";
+      }
+    }
+
+    return () => {
+      const tables = document.getElementsByTagName("table");
+      const tds = document.getElementsByTagName("td");
+      const ths = document.getElementsByTagName("th");
+
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+
+      for (let table of tables) {
+        table.style.borderColor = "";
+      }
+
+      for (let td of tds) {
+        td.style.borderColor = "";
+      }
+
+      for (let th of ths) {
+        th.style.borderColor = "";
+      }
+    };
+  }, [theme, result]);
 
   useEffect(() => {
     const isNumber = (value) => {
@@ -77,7 +141,12 @@ const App = () => {
 
   return (
     <div className="column">
-      <h1>INA - Mateusz Marek 20456</h1>
+      <div className="row gap">
+        <h1>INA - Mateusz Marek 20456</h1>{" "}
+        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+          {theme}
+        </button>
+      </div>
       <div className="row gap">
         <div className="row small_gap">
           <p>a =</p>
