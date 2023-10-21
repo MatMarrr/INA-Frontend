@@ -8,11 +8,12 @@ const App = () => {
   const [b, setB] = useState(12);
   const [d, setD] = useState(0.001);
   const [n, setN] = useState(10);
+  const [direction, setDirection] = useState("min");
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
-    header: ["lp.", "x real", "x int", "x bin", "x int", "x real", "f(x)"],
+    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real"],
     data: [],
   });
 
@@ -23,8 +24,20 @@ const App = () => {
   // n => 10
 
   useEffect(() => {
-    setAllFilled(!!a && !!b && !!d && !!n);
-  }, [a, b, d, n]);
+    const isNumber = (value) => {
+      return value !== null && isFinite(Number(value));
+    };
+
+    setAllFilled(
+      isNumber(a) &&
+        isNumber(b) &&
+        isNumber(n) &&
+        !!d &&
+        !!direction &&
+        b > a &&
+        b >= 0
+    );
+  }, [a, b, d, n, direction]);
 
   const getResult = async () => {
     setShowResult(false);
@@ -35,7 +48,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `${apiUrl}/genetic-algorithm/all-conversions-table`,
+        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-fx-table`,
         {
           headers: {
             Authorization: authorizationKey,
@@ -45,13 +58,14 @@ const App = () => {
             b: b,
             d: d,
             n: n,
+            direction: direction,
           },
         }
       );
 
       setResult((prevResult) => ({
         ...prevResult,
-        data: response.data.conversionsTable,
+        data: response.data.fxGxPiQiRFxTable,
       }));
 
       setIsLoading(false);
@@ -105,6 +119,18 @@ const App = () => {
               setN(e.target.value);
             }}
           ></input>
+        </div>
+        <div className="row small_gap">
+          <p>Direction =</p>
+          <select
+            value={direction.toString()}
+            onChange={(e) => {
+              setDirection(e.target.value);
+            }}
+          >
+            <option value="min">min</option>
+            <option value="max">max</option>
+          </select>
         </div>
         <div className="row small_gap">
           <button onClick={getResult} disabled={!allFilled}>
