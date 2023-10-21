@@ -144,7 +144,7 @@ const App = () => {
       <div className="row gap">
         <h1>INA - Mateusz Marek 20456</h1>{" "}
         <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-          {theme}
+          Theme: {theme}
         </button>
       </div>
       <div className="row gap">
