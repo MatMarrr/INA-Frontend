@@ -48,7 +48,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-fx-table`,
+        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-x-table`,
         {
           headers: {
             Authorization: authorizationKey,
@@ -65,7 +65,7 @@ const App = () => {
 
       setResult((prevResult) => ({
         ...prevResult,
-        data: response.data.fxGxPiQiRFxTable,
+        data: response.data.fxGxPiQiRXTable,
       }));
 
       setIsLoading(false);
