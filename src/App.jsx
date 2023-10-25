@@ -9,6 +9,7 @@ const App = () => {
   const [d, setD] = useState(0.001);
   const [n, setN] = useState(10);
   const [pk, setPk] = useState(0.7);
+  const [pm, setPm] = useState(0.002);
   const [theme, setTheme] = useState("light");
   const [direction, setDirection] = useState("max");
   const [isLoading, setIsLoading] = useState(false);
@@ -198,6 +199,15 @@ const App = () => {
             value={pk.toString()}
             onChange={(e) => {
               setPk(e.target.value);
+            }}
+          ></input>
+        </div>
+        <div className="row small_gap">
+          <p>Pm =</p>
+          <input
+            value={pm.toString()}
+            onChange={(e) => {
+              setPm(e.target.value);
             }}
           ></input>
         </div>
