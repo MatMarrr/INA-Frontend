@@ -15,7 +15,7 @@ const App = () => {
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
-    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzic"],
+    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzice"],
     data: [],
   });
   const showThemeChangeButton = false;
