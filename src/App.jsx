@@ -126,6 +126,7 @@ const App = () => {
             d: d,
             n: n,
             pk: pk,
+            pm: pm,
             direction: direction,
           },
         }
