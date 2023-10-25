@@ -8,13 +8,14 @@ const App = () => {
   const [b, setB] = useState(12);
   const [d, setD] = useState(0.001);
   const [n, setN] = useState(10);
+  const [pk, setPk] = useState(0.7);
   const [theme, setTheme] = useState("light");
   const [direction, setDirection] = useState("min");
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
-    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real"],
+    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzic"],
     data: [],
   });
 
@@ -112,7 +113,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-x-table`,
+        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-x-xbin-parents-table`,
         {
           headers: {
             Authorization: authorizationKey,
@@ -122,6 +123,7 @@ const App = () => {
             b: b,
             d: d,
             n: n,
+            pk: pk,
             direction: direction,
           },
         }
@@ -129,7 +131,7 @@ const App = () => {
 
       setResult((prevResult) => ({
         ...prevResult,
-        data: response.data.fxGxPiQiRXTable,
+        data: response.data.tableLpToParents,
       }));
 
       setIsLoading(false);
@@ -186,6 +188,15 @@ const App = () => {
             value={n.toString()}
             onChange={(e) => {
               setN(e.target.value);
+            }}
+          ></input>
+        </div>
+        <div className="row small_gap">
+          <p>Pk =</p>
+          <input
+            value={pk.toString()}
+            onChange={(e) => {
+              setPk(e.target.value);
             }}
           ></input>
         </div>
