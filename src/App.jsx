@@ -10,7 +10,7 @@ const App = () => {
   const [n, setN] = useState(10);
   const [pk, setPk] = useState(0.7);
   const [theme, setTheme] = useState("light");
-  const [direction, setDirection] = useState("min");
+  const [direction, setDirection] = useState("max");
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
@@ -18,6 +18,7 @@ const App = () => {
     header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzic"],
     data: [],
   });
+  const showThemeChangeButton = false;
 
   // a => -2
   // b => 3 ;
@@ -95,12 +96,12 @@ const App = () => {
 
     setAllFilled(
       isNumber(a) &&
-        isNumber(b) &&
-        isNumber(n) &&
-        !!d &&
-        !!direction &&
-        b > a &&
-        b >= 0
+      isNumber(b) &&
+      isNumber(n) &&
+      !!d &&
+      !!direction &&
+      b > a &&
+      b >= 0
     );
   }, [a, b, d, n, direction]);
 
@@ -145,9 +146,9 @@ const App = () => {
     <div className="column">
       <div className="row gap">
         <h1>INA - Mateusz Marek 20456</h1>{" "}
-        <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        {showThemeChangeButton && <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
           Theme: {theme}
-        </button>
+        </button>}
       </div>
       <div className="row gap">
         <div className="row small_gap">
