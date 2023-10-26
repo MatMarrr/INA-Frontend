@@ -16,7 +16,7 @@ const App = () => {
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
-    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzice"],
+    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzice", "pc", "pokolenie krzyżówkowe", "zmutowane bity", "xbin po mutacji", "x real", "f(x)"],
     data: [],
   });
   const showThemeChangeButton = false;
@@ -115,7 +115,7 @@ const App = () => {
 
     try {
       const response = await axios.get(
-        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-x-xbin-parents-table`,
+        `${apiUrl}/genetic-algorithm/fx-gx-pi-qi-r-x-xbin-parents-pk-crossed-mutatedBits-mutatedXbin-xreal-fx-table`,
         {
           headers: {
             Authorization: authorizationKey,
@@ -134,11 +134,12 @@ const App = () => {
 
       setResult((prevResult) => ({
         ...prevResult,
-        data: response.data.tableLpToParents,
+        data: response.data.tableLpToLastFx,
       }));
 
       setIsLoading(false);
       setShowResult(true);
+      console.log(response);
     } catch (error) {
       console.error("Error fetching the data", error);
     }
