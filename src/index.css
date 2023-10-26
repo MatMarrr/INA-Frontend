@@ -55,6 +55,7 @@ button {
   border-radius: 15px;
   cursor: pointer;
   transition-duration: 0.3s;
+  user-select: none;
 }
 
 button:disabled {

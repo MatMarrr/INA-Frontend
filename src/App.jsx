@@ -16,7 +16,24 @@ const App = () => {
   const [showResult, setShowResult] = useState(false);
   const [allFilled, setAllFilled] = useState(true);
   const [result, setResult] = useState({
-    header: ["lp.", "x real", "f(x)", "g(x)", "pi", "qi", "r", "x real", "x bin", "rodzice", "pc", "pokolenie krzyżówkowe", "zmutowane bity", "xbin po mutacji", "x real", "f(x)"],
+    header: [
+      "lp.",
+      "x real",
+      "f(x)",
+      "g(x)",
+      "pi",
+      "qi",
+      "r",
+      "x real",
+      "x bin",
+      "rodzice",
+      "pc",
+      "pokolenie krzyżówkowe",
+      "zmutowane bity",
+      "xbin po mutacji",
+      "x real",
+      "f(x)",
+    ],
     data: [],
   });
   const showThemeChangeButton = false;
@@ -97,12 +114,12 @@ const App = () => {
 
     setAllFilled(
       isNumber(a) &&
-      isNumber(b) &&
-      isNumber(n) &&
-      !!d &&
-      !!direction &&
-      b > a &&
-      b >= 0
+        isNumber(b) &&
+        isNumber(n) &&
+        !!d &&
+        !!direction &&
+        b > a &&
+        b >= 0
     );
   }, [a, b, d, n, direction]);
 
@@ -149,9 +166,13 @@ const App = () => {
     <div className="column">
       <div className="row gap">
         <h1>INA - Mateusz Marek 20456</h1>{" "}
-        {showThemeChangeButton && <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-          Theme: {theme}
-        </button>}
+        {showThemeChangeButton && (
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            Theme: {theme}
+          </button>
+        )}
       </div>
       <div className="row gap">
         <div className="row small_gap">
@@ -226,7 +247,7 @@ const App = () => {
           </select>
         </div>
         <div className="row small_gap">
-          <button onClick={getResult} disabled={!allFilled}>
+          <button onClick={getResult} disabled={!allFilled || isLoading}>
             Start
           </button>
         </div>
