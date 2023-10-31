@@ -236,7 +236,7 @@ const App = () => {
         </div>
         <div className="row small_gap">
           <p>Direction =</p>
-          <select
+          <select disabled
             value={direction.toString()}
             onChange={(e) => {
               setDirection(e.target.value);
