@@ -119,9 +119,11 @@ const App = () => {
         !!d &&
         !!direction &&
         b > a &&
-        b >= 0
+        b >= 0 &&
+        isNumber(pk) &&
+        isNumber(pm)
     );
-  }, [a, b, d, n, direction]);
+  }, [a, b, d, n, pk, pm, direction]);
 
   const getResult = async () => {
     setShowResult(false);
@@ -236,7 +238,8 @@ const App = () => {
         </div>
         <div className="row small_gap">
           <p>Direction =</p>
-          <select disabled
+          <select
+            disabled
             value={direction.toString()}
             onChange={(e) => {
               setDirection(e.target.value);
